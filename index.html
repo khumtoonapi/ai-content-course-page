@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c1020">
+  <meta name="description" content="คอร์ส AI สำหรับเจ้าของร้านออนไลน์ เรียนรู้การวางแผนและร่างคอนเทนต์อย่างเป็นระบบ พร้อมตรวจความถูกต้องก่อนนำไปใช้จริง">
+  <title>AI Content Lab — คอร์ส AI สำหรับร้านค้าออนไลน์</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #0c1020;
+      --surface: #13192b;
+      --surface-light: #1a2238;
+      --text: #f6f7fb;
+      --muted: #a9b2c8;
+      --line: rgba(217, 226, 255, .14);
+      --lime: #c8f169;
+      --blue: #8294ff;
+      --pink: #f3a8d3;
+      --radius: 24px;
+      --max: 1160px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--ink);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .wrap { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
+    .draft-note {
+      padding: 9px 16px;
+      background: #fff0c2;
+      color: #30250b;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .site-header { position: relative; z-index: 5; border-bottom: 1px solid var(--line); }
+    .nav { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; font-weight: 800; letter-spacing: -.03em; }
+    .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 11px; color: var(--ink); background: var(--lime); font-size: 17px; font-weight: 950; }
+    .brand-name { font-size: 16px; }
+    .nav-links { display: flex; align-items: center; gap: 30px; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s ease; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { padding: 11px 17px; border: 1px solid var(--line); border-radius: 999px; color: var(--text) !important; }
+    .menu-toggle { display: none; border: 1px solid var(--line); border-radius: 12px; padding: 8px 12px; color: var(--text); background: transparent; font: inherit; }
+    .hero { position: relative; overflow: hidden; padding: 92px 0 100px; }
+    .hero::before { content: ""; position: absolute; width: 550px; height: 550px; top: -205px; right: -120px; border-radius: 50%; background: radial-gradient(circle, rgba(130,148,255,.22), rgba(130,148,255,0) 68%); pointer-events: none; }
+    .hero-grid { position: relative; display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 62px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 22px; color: var(--lime); font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 21px; height: 1px; background: currentColor; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { max-width: 670px; margin-bottom: 22px; font-size: clamp(42px, 6vw, 72px); line-height: 1.04; letter-spacing: -.065em; }
+    h1 .accent { color: var(--lime); }
+    .hero-copy { max-width: 560px; margin-bottom: 30px; color: var(--muted); font-size: 18px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .button { min-height: 52px; display: inline-flex; justify-content: center; align-items: center; gap: 10px; padding: 13px 21px; border: 1px solid transparent; border-radius: 999px; text-decoration: none; font-weight: 800; transition: transform .2s ease, background .2s ease; }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { background: var(--lime); color: #171e0b; }
+    .button-secondary { border-color: var(--line); background: rgba(255,255,255,.025); color: var(--text); }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 30px; color: var(--muted); font-size: 13px; }
+    .hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
+    .check { color: var(--lime); font-weight: 900; }
+    .preview { position: relative; min-height: 430px; display: grid; place-items: center; }
+    .glow { position: absolute; width: 78%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(200,241,105,.15), rgba(200,241,105,0) 70%); }
+    .course-card { position: relative; width: min(100%, 435px); padding: 25px; border: 1px solid rgba(226,233,255,.16); border-radius: 26px; background: linear-gradient(145deg, rgba(28,37,61,.96), rgba(17,23,40,.96)); box-shadow: 0 26px 85px rgba(0,0,0,.35); transform: rotate(2deg); }
+    .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 27px; }
+    .mini-label { color: var(--muted); font-size: 12px; }
+    .live-pill { padding: 6px 10px; border: 1px solid rgba(200,241,105,.3); border-radius: 99px; color: var(--lime); font-size: 11px; font-weight: 800; }
+    .course-card h2 { margin-bottom: 8px; font-size: 26px; line-height: 1.2; letter-spacing: -.04em; }
+    .course-card > p { margin-bottom: 23px; color: var(--muted); font-size: 14px; }
+    .lesson { display: flex; align-items: center; gap: 14px; padding: 13px 0; border-top: 1px solid var(--line); }
+    .lesson-num { flex: 0 0 34px; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 11px; background: rgba(130,148,255,.14); color: #bbc4ff; font-size: 12px; font-weight: 800; }
+    .lesson:nth-of-type(3) .lesson-num { background: rgba(200,241,105,.12); color: var(--lime); }
+    .lesson strong { display: block; font-size: 13px; }
+    .lesson small { display: block; color: var(--muted); font-size: 11px; }
+    .floating-note { position: absolute; right: -16px; bottom: 25px; padding: 13px 16px; border: 1px solid var(--line); border-radius: 15px; background: #202a41; color: var(--text); font-size: 12px; box-shadow: 0 12px 35px rgba(0,0,0,.25); transform: rotate(-4deg); }
+    .floating-note b { color: var(--lime); }
+    .section { padding: 96px 0; }
+    .section-soft { background: #101629; }
+    .section-head { max-width: 700px; margin-bottom: 42px; }
+    .section-kicker { margin-bottom: 12px; color: var(--blue); font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    h2.section-title { margin-bottom: 14px; font-size: clamp(32px, 4vw, 49px); line-height: 1.1; letter-spacing: -.055em; }
+    .section-intro { color: var(--muted); font-size: 17px; }
+    .benefit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .benefit { min-height: 220px; padding: 25px; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(255,255,255,.025); }
+    .icon { width: 42px; height: 42px; display: grid; place-items: center; margin-bottom: 23px; border-radius: 14px; background: rgba(200,241,105,.11); color: var(--lime); font-size: 19px; }
+    .benefit h3 { margin-bottom: 9px; font-size: 18px; letter-spacing: -.025em; }
+    .benefit p { margin-bottom: 0; color: var(--muted); font-size: 14px; }
+    .audience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .audience-card { padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+    .audience-card h3 { margin-bottom: 18px; font-size: 21px; }
+    .audience-card ul { display: grid; gap: 13px; margin: 0; padding: 0; list-style: none; color: var(--muted); }
+    .audience-card li { display: flex; gap: 11px; }
+    .audience-card .check { flex: 0 0 18px; }
+    .module-list { display: grid; gap: 12px; }
+    .module { display: grid; grid-template-columns: 62px 1fr auto; align-items: center; gap: 18px; padding: 21px 24px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,.025); }
+    .module-index { color: var(--lime); font-size: 13px; font-weight: 900; }
+    .module h3 { margin: 0 0 4px; font-size: 17px; }
+    .module p { margin: 0; color: var(--muted); font-size: 14px; }
+    .module-tag { color: var(--muted); font-size: 12px; white-space: nowrap; }
+    .method-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+    .method { padding: 22px; border-left: 2px solid var(--blue); background: rgba(255,255,255,.025); }
+    .method b { display: block; margin-bottom: 8px; font-size: 15px; }
+    .method p { margin: 0; color: var(--muted); font-size: 13px; }
+    .offer { position: relative; overflow: hidden; padding: 42px; border: 1px solid rgba(200,241,105,.3); border-radius: 30px; background: radial-gradient(ellipse at 95% 0%, rgba(200,241,105,.12), transparent 42%), linear-gradient(135deg, #1a2237, #11182a); }
+    .offer-grid { display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: 36px; }
+    .offer h2 { margin-bottom: 13px; font-size: clamp(30px, 4vw, 43px); letter-spacing: -.05em; line-height: 1.12; }
+    .offer p { color: var(--muted); }
+    .offer ul { display: grid; gap: 9px; margin: 22px 0 0; padding: 0; list-style: none; color: var(--muted); font-size: 14px; }
+    .offer li { display: flex; gap: 9px; }
+    .price-box { padding: 24px; border: 1px solid var(--line); border-radius: 20px; background: rgba(7,10,20,.32); }
+    .price-label { display: block; margin-bottom: 7px; color: var(--muted); font-size: 12px; }
+    .price-placeholder { margin-bottom: 13px; color: var(--lime); font-size: 27px; font-weight: 850; letter-spacing: -.04em; }
+    .price-box small { display: block; margin-top: 12px; color: var(--muted); font-size: 11px; }
+    .price-box .button { width: 100%; margin-top: 16px; }
+    .faq-list { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    details { padding: 20px 22px; border: 1px solid var(--line); border-radius: 17px; background: rgba(255,255,255,.025); }
+    summary { cursor: pointer; font-weight: 750; }
+    details p { margin: 12px 0 0; color: var(--muted); font-size: 14px; }
+    .interest { padding: 82px 0; text-align: center; }
+    .interest-panel { max-width: 760px; margin: auto; padding: 44px 28px; border: 1px solid var(--line); border-radius: 28px; background: linear-gradient(135deg, rgba(130,148,255,.12), rgba(200,241,105,.07)); }
+    .interest-panel h2 { margin-bottom: 12px; font-size: clamp(30px, 4vw, 46px); line-height: 1.1; letter-spacing: -.05em; }
+    .interest-panel p { max-width: 540px; margin: 0 auto 22px; color: var(--muted); }
+    .contact-placeholder { display: inline-flex; max-width: 100%; padding: 11px 15px; border: 1px dashed rgba(200,241,105,.55); border-radius: 12px; color: var(--lime); font-size: 13px; font-weight: 750; overflow-wrap: anywhere; }
+    .footer { padding: 28px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 16px; }
+    .footer a { text-decoration: none; }
+    :focus-visible { outline: 3px solid var(--lime); outline-offset: 4px; }
+    @media (max-width: 900px) {
+      .hero-grid { gap: 30px; }
+      .hero { padding: 70px 0 80px; }
+      .preview { min-height: 390px; }
+      .benefit-grid { grid-template-columns: 1fr 1fr; }
+      .offer { padding: 32px; }
+    }
+    @media (max-width: 680px) {
+      .wrap { width: min(var(--max), calc(100% - 36px)); }
+      .nav { min-height: 68px; }
+      .menu-toggle { display: inline-flex; }
+      .nav-links { position: absolute; top: 68px; left: 0; right: 0; display: none; padding: 14px 18px 20px; border-bottom: 1px solid var(--line); background: var(--ink); }
+      .nav-links.is-open { display: grid; gap: 0; }
+      .nav-links a { padding: 12px 4px; }
+      .nav-links .nav-cta { margin-top: 7px; padding: 10px 15px; text-align: center; }
+      .hero { padding: 58px 0 57px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 30px; }
+      h1 { font-size: clamp(43px, 12vw, 60px); }
+      .hero-copy { font-size: 16px; }
+      .hero-actions { display: grid; grid-template-columns: 1fr; }
+      .button { width: 100%; }
+      .hero-meta { gap: 10px 16px; }
+      .preview { min-height: auto; padding: 12px 2px 26px; }
+      .course-card { padding: 21px; transform: none; }
+      .floating-note { right: 0; bottom: 0; }
+      .section { padding: 68px 0; }
+      .section-head { margin-bottom: 28px; }
+      .section-intro { font-size: 15px; }
+      .benefit-grid, .audience-grid, .method-grid, .faq-list, .offer-grid { grid-template-columns: 1fr; }
+      .benefit { min-height: auto; }
+      .module { grid-template-columns: 42px 1fr; gap: 11px; padding: 17px; }
+      .module-tag { grid-column: 2; }
+      .offer { padding: 25px 20px; }
+      .interest { padding: 64px 0; }
+      .interest-panel { padding: 34px 20px; }
+      .footer-inner { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="draft-note">ฉบับร่างสำหรับปรับรายละเอียด — เติมราคา รอบเรียน และช่องทางติดต่อก่อนเปิดขาย</div>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="AI Content Lab หน้าแรก">
+        <span class="brand-mark" aria-hidden="true">AI</span><span class="brand-name">CONTENT LAB</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links">เมนู</button>
+      <nav class="nav-links" id="nav-links" aria-label="เมนูหลัก">
+        <a href="#learn">เรียนอะไรบ้าง</a>
+        <a href="#for-whom">เหมาะกับใคร</a>
+        <a href="#faq">คำถามที่พบบ่อย</a>
+        <a class="nav-cta" href="#interest">ดูรายละเอียดคอร์ส <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">คอร์ส AI สำหรับร้านค้าออนไลน์</p>
+          <h1>ใช้ AI ทำคอนเทนต์<br><span class="accent">ได้เป็นระบบ</span></h1>
+          <p class="hero-copy">เรียนรู้วิธีเปลี่ยนข้อมูลสินค้าให้เป็นไอเดียและข้อความสำหรับสื่อสารกับลูกค้า พร้อมแนวทางตรวจความถูกต้องก่อนนำไปใช้จริง</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#learn">ดูสิ่งที่จะได้เรียน <span aria-hidden="true">↓</span></a>
+            <a class="button button-secondary" href="#interest">สอบถามรอบเรียน</a>
+          </div>
+          <div class="hero-meta" aria-label="จุดเด่นของคอร์ส">
+            <span><b class="check" aria-hidden="true">✓</b> เริ่มจากพื้นฐาน</span>
+            <span><b class="check" aria-hidden="true">✓</b> เน้นลงมือทำ</span>
+            <span><b class="check" aria-hidden="true">✓</b> ไม่รับประกันยอดขาย</span>
+          </div>
+        </div>
+        <div class="preview" aria-label="ตัวอย่างหัวข้อการเรียน">
+          <div class="glow" aria-hidden="true"></div>
+          <div class="course-card">
+            <div class="card-top"><span class="mini-label">AI CONTENT WORKFLOW</span><span class="live-pill">เรียนรู้ทีละขั้น</span></div>
+            <h2>จากข้อมูลสินค้า<br>สู่คอนเทนต์ที่พร้อมตรวจ</h2>
+            <p>วางโจทย์ให้ชัด ให้ AI ช่วยร่าง แล้วตรวจแก้ด้วยข้อมูลจริง</p>
+            <div class="lesson"><span class="lesson-num">01</span><span><strong>ตั้งโจทย์ให้ AI เข้าใจ</strong><small>บริบท · กลุ่มลูกค้า · เป้าหมาย</small></span></div>
+            <div class="lesson"><span class="lesson-num">02</span><span><strong>วางแผนเนื้อหา</strong><small>หัวข้อ · มุมเล่า · รูปแบบโพสต์</small></span></div>
+            <div class="lesson"><span class="lesson-num">03</span><span><strong>ร่างและตรวจงาน</strong><small>ความถูกต้อง · น้ำเสียง · คำกล่าวอ้าง</small></span></div>
+          </div>
+          <div class="floating-note"><b>Human review</b> · คนตรวจทุกชิ้น</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="value">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="section-kicker">เรียนแล้วนำไปฝึกต่อได้</p>
+          <h2 class="section-title">ไม่ใช่แค่ขอให้ AI “เขียนให้หน่อย”</h2>
+          <p class="section-intro">ฝึกวิธีคิดและขั้นตอนทำงานที่นำกลับไปปรับใช้กับสินค้าและร้านของคุณเอง</p>
+        </div>
+        <div class="benefit-grid">
+          <article class="benefit"><div class="icon" aria-hidden="true">✳</div><h3>ตั้งคำสั่งได้ตรงงาน</h3><p>ใส่ข้อมูล กลุ่มเป้าหมาย และรูปแบบผลลัพธ์ให้ครบ เพื่อให้ AI ร่างงานได้ใกล้โจทย์ขึ้น</p></article>
+          <article class="benefit"><div class="icon" aria-hidden="true">◌</div><h3>วางหัวข้อได้เป็นชุด</h3><p>ฝึกคิดมุมเนื้อหาให้หลากหลาย และจัดเป็นแผนที่นำไปตรวจและปรับต่อได้</p></article>
+          <article class="benefit"><div class="icon" aria-hidden="true">✓</div><h3>ตรวจงานก่อนนำไปใช้</h3><p>เช็กข้อเท็จจริง ราคา โปรโมชั่น และคำกล่าวอ้างก่อนเผยแพร่ทุกครั้ง</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="for-whom">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="section-kicker">เลือกคอร์สให้ตรงจุดเริ่มต้น</p>
+          <h2 class="section-title">เหมาะกับคนที่อยากเริ่มใช้ AI กับงานจริง</h2>
+        </div>
+        <div class="audience-grid">
+          <article class="audience-card">
+            <h3>คอร์สนี้เหมาะกับคุณ ถ้า…</h3>
+            <ul><li><span class="check">✓</span><span>เป็นเจ้าของร้านหรือดูแลธุรกิจขนาดเล็ก</span></li><li><span class="check">✓</span><span>ยังไม่แน่ใจว่าจะเริ่มสั่งงาน AI อย่างไร</span></li><li><span class="check">✓</span><span>อยากทำร่างคอนเทนต์และตรวจเองก่อนใช้</span></li></ul>
+          </article>
+          <article class="audience-card">
+            <h3>คอร์สนี้ไม่ใช่…</h3>
+            <ul><li><span class="check">—</span><span>สูตรลัดที่รับประกันยอดขายหรือยอดผู้ติดตาม</span></li><li><span class="check">—</span><span>บริการทำคอนเทนต์แทนหรือดูแลเพจให้</span></li><li><span class="check">—</span><span>หลักสูตรเขียนโปรแกรมหรือสร้างระบบ AI</span></li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="learn">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="section-kicker">โครงร่างหลักสูตร</p>
+          <h2 class="section-title">เรียนตั้งแต่ตั้งโจทย์ จนถึงตรวจงาน</h2>
+          <p class="section-intro">หัวข้อด้านล่างเป็นโครงร่างเริ่มต้น ควรปรับให้ตรงกับบทเรียนจริงก่อนเปิดรับสมัคร</p>
+        </div>
+        <div class="module-list">
+          <article class="module"><span class="module-index">MODULE 01</span><div><h3>เริ่มต้นใช้ AI อย่างเข้าใจ</h3><p>รู้จักข้อจำกัดของ AI และเตรียมข้อมูลก่อนเริ่มงาน</p></div><span class="module-tag">พื้นฐาน</span></article>
+          <article class="module"><span class="module-index">MODULE 02</span><div><h3>รู้จักสินค้าและลูกค้า</h3><p>แยกข้อมูลจริง สมมติฐาน และคำถามที่ต้องหาคำตอบ</p></div><span class="module-tag">วางแผน</span></article>
+          <article class="module"><span class="module-index">MODULE 03</span><div><h3>ทำ Content Brief และปฏิทิน</h3><p>จัดหัวข้อและเป้าหมายของเนื้อหาให้ตรวจทานได้</p></div><span class="module-tag">ลงมือทำ</span></article>
+          <article class="module"><span class="module-index">MODULE 04</span><div><h3>ร่างข้อความและตรวจคุณภาพ</h3><p>ปรับน้ำเสียง ตรวจข้อเท็จจริง และทบทวนก่อนเผยแพร่</p></div><span class="module-tag">นำไปใช้</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="method">
+      <div class="wrap">
+        <div class="section-head"><p class="section-kicker">วิธีเรียน</p><h2 class="section-title">ฝึกกับข้อมูลร้านของคุณเอง</h2></div>
+        <div class="method-grid">
+          <div class="method"><b>01 · เตรียมโจทย์</b><p>นำข้อมูลสินค้าและเป้าหมายที่ต้องการสื่อสารมาใช้ฝึก</p></div>
+          <div class="method"><b>02 · ให้ AI ช่วยร่าง</b><p>ทดลองคำสั่งและปรับผลลัพธ์ให้ตรงกับบริบท</p></div>
+          <div class="method"><b>03 · ตรวจและปรับใช้</b><p>ตรวจข้อเท็จจริงและเลือกเฉพาะส่วนที่เหมาะกับร้าน</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="offer">
+      <div class="wrap">
+        <div class="offer-grid offer">
+          <div>
+            <p class="section-kicker">รายละเอียดการสมัคร</p>
+            <h2>เริ่มทำคอนเทนต์<br>ด้วย AI อย่างมีขั้นตอน</h2>
+            <p>ดูรายละเอียดรอบเรียนและรูปแบบการสอนก่อนตัดสินใจ</p>
+            <ul><li><span class="check">✓</span><span>รูปแบบเรียน: <strong>[ระบุสด / บันทึก / ผสม]</strong></span></li><li><span class="check">✓</span><span>ระยะเวลา: <strong>[ระบุจำนวนชั่วโมงหรือวัน]</strong></span></li><li><span class="check">✓</span><span>สิ่งที่ได้รับ: <strong>[ระบุไฟล์หรือแบบฝึกหัดจริง]</strong></span></li></ul>
+          </div>
+          <div class="price-box">
+            <span class="price-label">ราคาและรอบเรียน</span>
+            <div class="price-placeholder">[เติมราคา]</div>
+            <span class="mini-label">เปิดรับสมัคร: [เติมวัน/รอบเรียน]</span>
+            <a class="button button-primary" href="#interest">สอบถามรายละเอียด <span aria-hidden="true">↗</span></a>
+            <small>โปรดเติมรายละเอียดจริงและตรวจสอบก่อนนำหน้าเว็บนี้ไปเผยแพร่</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="wrap">
+        <div class="section-head"><p class="section-kicker">คำถามที่พบบ่อย</p><h2 class="section-title">ก่อนตัดสินใจเรียน</h2></div>
+        <div class="faq-list">
+          <details><summary>ต้องมีพื้นฐาน AI มาก่อนไหม?</summary><p>โครงร่างนี้ออกแบบสำหรับผู้เริ่มต้น แต่ควรยืนยันรูปแบบและข้อกำหนดของคอร์สจริงก่อนเปิดขาย</p></details>
+          <details><summary>เรียนแล้วจะเพิ่มยอดขายได้ไหม?</summary><p>ไม่มีการรับประกันยอดขาย ผลลัพธ์ขึ้นกับสินค้า ราคา การสื่อสาร ช่องทาง และการตัดสินใจของลูกค้าด้วย</p></details>
+          <details><summary>ต้องซื้อเครื่องมือเพิ่มหรือไม่?</summary><p>รายละเอียดเครื่องมือที่ใช้และข้อจำกัดของแต่ละแพ็กเกจควรแจ้งให้ชัดก่อนสมัคร ไม่ควรสมมติว่าทุกเครื่องมือใช้ฟรีหรือใช้งานได้ไม่จำกัด</p></details>
+          <details><summary>จะสมัครหรือสอบถามได้ทางไหน?</summary><p>เพิ่มลิงก์ LINE / อีเมล / หน้าชำระเงินจริงในส่วนติดต่อก่อนเผยแพร่ ขณะนี้หน้านี้ยังไม่มีระบบรับสมัครหรือชำระเงิน</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="interest" id="interest">
+      <div class="wrap">
+        <div class="interest-panel">
+          <p class="section-kicker">สนใจเรียนรู้หรือไม่?</p>
+          <h2>ใส่ช่องทางสมัครที่คุณใช้จริง</h2>
+          <p>ก่อนเปิดขาย ให้แทนข้อความด้านล่างด้วยลิงก์ LINE, อีเมล หรือหน้าชำระเงินของคุณ ปุ่มสมัครด้านบนจะพามาที่ส่วนนี้</p>
+          <span class="contact-placeholder">TODO · ใส่ LINE Official / อีเมล / ลิงก์สมัคร</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner"><span>© 2026 AI Content Lab · ชื่อแบรนด์สำหรับร่าง</span><a href="#top">กลับขึ้นด้านบน ↑</a></div>
+  </footer>
+  <script>
+    const menuButton = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    menuButton.addEventListener('click', () => {
+      const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+      menuButton.setAttribute('aria-expanded', String(!isOpen));
+      navLinks.classList.toggle('is-open', !isOpen);
+    });
+    navLinks.addEventListener('click', (event) => {
+      if (event.target.closest('a')) {
+        menuButton.setAttribute('aria-expanded', 'false');
+        navLinks.classList.remove('is-open');
+      }
+    });
+  </script>
+</body>
+</html>
