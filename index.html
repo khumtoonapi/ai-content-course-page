@@ -55,6 +55,7 @@
     .menu-toggle { display: none; border: 1px solid var(--line); border-radius: 12px; padding: 8px 12px; color: var(--text); background: transparent; font: inherit; }
     .hero { position: relative; overflow: hidden; padding: 92px 0 100px; }
     .hero::before { content: ""; position: absolute; width: 550px; height: 550px; top: -205px; right: -120px; border-radius: 50%; background: radial-gradient(circle, rgba(130,148,255,.22), rgba(130,148,255,0) 68%); pointer-events: none; }
+    .hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .36; background-image: linear-gradient(rgba(130,148,255,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(130,148,255,.055) 1px, transparent 1px); background-size: 48px 48px; mask-image: linear-gradient(90deg, transparent 4%, #000 60%, transparent 100%); }
     .hero-grid { position: relative; display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 62px; }
     .eyebrow { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 22px; color: var(--lime); font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
     .eyebrow::before { content: ""; width: 21px; height: 1px; background: currentColor; }
@@ -72,8 +73,9 @@
     .check { color: var(--lime); font-weight: 900; }
     .preview { position: relative; min-height: 430px; display: grid; place-items: center; }
     .glow { position: absolute; width: 78%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(200,241,105,.15), rgba(200,241,105,0) 70%); }
-    .course-card { position: relative; width: min(100%, 435px); padding: 25px; border: 1px solid rgba(226,233,255,.16); border-radius: 26px; background: linear-gradient(145deg, rgba(28,37,61,.96), rgba(17,23,40,.96)); box-shadow: 0 26px 85px rgba(0,0,0,.35); transform: rotate(2deg); }
+    .course-card { position: relative; width: min(100%, 435px); padding: 25px; border: 1px solid rgba(226,233,255,.18); border-radius: 26px; background: linear-gradient(145deg, rgba(28,37,61,.88), rgba(17,23,40,.94)); box-shadow: 0 26px 85px rgba(0,0,0,.35); backdrop-filter: blur(18px); transform: rotate(2deg); }
     .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 27px; }
+    .workflow-art { display: block; width: 100%; height: 86px; margin: -7px 0 16px; overflow: visible; }
     .mini-label { color: var(--muted); font-size: 12px; }
     .live-pill { padding: 6px 10px; border: 1px solid rgba(200,241,105,.3); border-radius: 99px; color: var(--lime); font-size: 11px; font-weight: 800; }
     .course-card h2 { margin-bottom: 8px; font-size: 26px; line-height: 1.2; letter-spacing: -.04em; }
@@ -92,8 +94,10 @@
     h2.section-title { margin-bottom: 14px; font-size: clamp(32px, 4vw, 49px); line-height: 1.1; letter-spacing: -.055em; }
     .section-intro { color: var(--muted); font-size: 17px; }
     .benefit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .benefit { min-height: 220px; padding: 25px; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(255,255,255,.025); }
-    .icon { width: 42px; height: 42px; display: grid; place-items: center; margin-bottom: 23px; border-radius: 14px; background: rgba(200,241,105,.11); color: var(--lime); font-size: 19px; }
+    .benefit { position: relative; min-height: 220px; padding: 25px; border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(145deg, rgba(255,255,255,.04), rgba(255,255,255,.015)); transition: transform .25s ease, border-color .25s ease, background .25s ease; }
+    .benefit:hover { transform: translateY(-4px); border-color: rgba(200,241,105,.34); background: linear-gradient(145deg, rgba(200,241,105,.07), rgba(130,148,255,.035)); }
+    .icon { width: 44px; height: 44px; display: grid; place-items: center; margin-bottom: 23px; border: 1px solid rgba(200,241,105,.18); border-radius: 15px; background: linear-gradient(145deg, rgba(200,241,105,.14), rgba(130,148,255,.1)); color: var(--lime); }
+    .icon svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
     .benefit h3 { margin-bottom: 9px; font-size: 18px; letter-spacing: -.025em; }
     .benefit p { margin-bottom: 0; color: var(--muted); font-size: 14px; }
     .audience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
@@ -159,6 +163,7 @@
       .button { width: 100%; }
       .hero-meta { gap: 10px 16px; }
       .preview { min-height: auto; padding: 12px 2px 26px; }
+      .workflow-art { height: 74px; margin-bottom: 13px; }
       .course-card { padding: 21px; transform: none; }
       .floating-note { right: 0; bottom: 0; }
       .section { padding: 68px 0; }
@@ -216,6 +221,14 @@
           <div class="glow" aria-hidden="true"></div>
           <div class="course-card">
             <div class="card-top"><span class="mini-label">AI CONTENT WORKFLOW</span><span class="live-pill">เรียนรู้ทีละขั้น</span></div>
+            <svg class="workflow-art" viewBox="0 0 390 86" role="img" aria-label="แผนภาพขั้นตอนตั้งโจทย์ ร่างคอนเทนต์ และตรวจงาน">
+              <defs><linearGradient id="flow-line" x1="0" x2="1"><stop stop-color="#8294ff"/><stop offset="1" stop-color="#c8f169"/></linearGradient><radialGradient id="flow-glow"><stop stop-color="#8294ff" stop-opacity=".25"/><stop offset="1" stop-color="#8294ff" stop-opacity="0"/></radialGradient></defs>
+              <ellipse cx="195" cy="44" rx="175" ry="42" fill="url(#flow-glow)"/>
+              <path d="M55 43 C103 4 150 4 195 43 S289 82 335 43" fill="none" stroke="url(#flow-line)" stroke-width="2" stroke-dasharray="4 6" opacity=".8"/>
+              <g fill="#182139" stroke="#8294ff" stroke-width="1.5"><circle cx="55" cy="43" r="23"/><circle cx="195" cy="43" r="23" stroke="#a5b0ff"/><circle cx="335" cy="43" r="23" stroke="#c8f169"/></g>
+              <g fill="none" stroke="#dfe4ff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M50 36h10M55 31v10M48 45l4-4 4 4 6-7"/><rect x="188" y="34" width="14" height="18" rx="3"/><path d="M191 39h8M191 43h8M191 47h5"/><path d="m328 43 5 5 10-11"/></g>
+              <circle cx="55" cy="43" r="3" fill="#c8f169"/><circle cx="195" cy="43" r="3" fill="#c8f169"/><circle cx="335" cy="43" r="3" fill="#c8f169"/>
+            </svg>
             <h2>จากข้อมูลสินค้า<br>สู่คอนเทนต์ที่พร้อมตรวจ</h2>
             <p>วางโจทย์ให้ชัด ให้ AI ช่วยร่าง แล้วตรวจแก้ด้วยข้อมูลจริง</p>
             <div class="lesson"><span class="lesson-num">01</span><span><strong>ตั้งโจทย์ให้ AI เข้าใจ</strong><small>บริบท · กลุ่มลูกค้า · เป้าหมาย</small></span></div>
@@ -235,9 +248,9 @@
           <p class="section-intro">ฝึกวิธีคิดและขั้นตอนทำงานที่นำกลับไปปรับใช้กับสินค้าและร้านของคุณเอง</p>
         </div>
         <div class="benefit-grid">
-          <article class="benefit"><div class="icon" aria-hidden="true">✳</div><h3>ตั้งคำสั่งได้ตรงงาน</h3><p>ใส่ข้อมูล กลุ่มเป้าหมาย และรูปแบบผลลัพธ์ให้ครบ เพื่อให้ AI ร่างงานได้ใกล้โจทย์ขึ้น</p></article>
-          <article class="benefit"><div class="icon" aria-hidden="true">◌</div><h3>วางหัวข้อได้เป็นชุด</h3><p>ฝึกคิดมุมเนื้อหาให้หลากหลาย และจัดเป็นแผนที่นำไปตรวจและปรับต่อได้</p></article>
-          <article class="benefit"><div class="icon" aria-hidden="true">✓</div><h3>ตรวจงานก่อนนำไปใช้</h3><p>เช็กข้อเท็จจริง ราคา โปรโมชั่น และคำกล่าวอ้างก่อนเผยแพร่ทุกครั้ง</p></article>
+          <article class="benefit"><div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/><circle cx="12" cy="12" r="3"/></svg></div><h3>ตั้งคำสั่งได้ตรงงาน</h3><p>ใส่ข้อมูล กลุ่มเป้าหมาย และรูปแบบผลลัพธ์ให้ครบ เพื่อให้ AI ร่างงานได้ใกล้โจทย์ขึ้น</p></article>
+          <article class="benefit"><div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><path d="M14 17h6M17 14v6"/></svg></div><h3>วางหัวข้อได้เป็นชุด</h3><p>ฝึกคิดมุมเนื้อหาให้หลากหลาย และจัดเป็นแผนที่นำไปตรวจและปรับต่อได้</p></article>
+          <article class="benefit"><div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 19 6v5c0 4.5-2.9 7.7-7 10-4.1-2.3-7-5.5-7-10V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>ตรวจงานก่อนนำไปใช้</h3><p>เช็กข้อเท็จจริง ราคา โปรโมชั่น และคำกล่าวอ้างก่อนเผยแพร่ทุกครั้ง</p></article>
         </div>
       </div>
     </section>
