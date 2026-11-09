@@ -54,9 +54,9 @@
     .nav-cta { padding: 11px 17px; border: 1px solid var(--line); border-radius: 999px; color: var(--text) !important; }
     .menu-toggle { display: none; border: 1px solid var(--line); border-radius: 12px; padding: 8px 12px; color: var(--text); background: transparent; font: inherit; }
     .hero { position: relative; overflow: hidden; padding: 92px 0 100px; }
-    .hero::before { content: ""; position: absolute; z-index: 0; width: 550px; height: 550px; top: var(--pointer-y, 25%); left: var(--pointer-x, 72%); border-radius: 50%; background: radial-gradient(circle, rgba(130,148,255,.2), rgba(130,148,255,0) 68%); transform: translate(-50%, -50%); transition: top .28s ease-out, left .28s ease-out; pointer-events: none; }
-    .hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .36; background-image: linear-gradient(rgba(130,148,255,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(130,148,255,.055) 1px, transparent 1px); background-size: 48px 48px; mask-image: linear-gradient(90deg, transparent 4%, #000 60%, transparent 100%); }
-    .hero-canvas { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    .hero::before { content: ""; position: absolute; z-index: 0; width: 700px; height: 700px; top: var(--pointer-y, 25%); left: var(--pointer-x, 72%); border-radius: 50%; background: radial-gradient(circle, rgba(130,148,255,.34), rgba(130,148,255,.13) 32%, rgba(200,241,105,.07) 48%, rgba(130,148,255,0) 70%); transform: translate(-50%, -50%); transition: top .12s ease-out, left .12s ease-out; pointer-events: none; }
+    .hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .52; background-image: linear-gradient(rgba(130,148,255,.075) 1px, transparent 1px), linear-gradient(90deg, rgba(130,148,255,.075) 1px, transparent 1px); background-size: 48px 48px; mask-image: linear-gradient(90deg, transparent 4%, #000 60%, transparent 100%); }
+    .hero-canvas { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; opacity: .88; mix-blend-mode: screen; pointer-events: none; }
     .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 62px; }
     .eyebrow { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 22px; color: var(--lime); font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
     .eyebrow::before { content: ""; width: 21px; height: 1px; background: currentColor; }
@@ -395,7 +395,7 @@
           canvas.width = Math.round(width * scale);
           canvas.height = Math.round(height * scale);
           context.setTransform(scale, 0, 0, scale, 0, 0);
-          const count = Math.min(58, Math.max(28, Math.round((width * height) / 15000)));
+          const count = Math.min(84, Math.max(40, Math.round((width * height) / 10000)));
           nodes = Array.from({ length: count }, (_, index) => ({
             x: ((index * 0.61803398875) % 1) * width,
             y: ((index * 0.75487766625) % 1) * height,
@@ -410,15 +410,15 @@
           lastFrame = time;
           context.clearRect(0, 0, width, height);
           const points = nodes.map((node) => {
-            const driftX = Math.sin(time * 0.00022 + node.phase) * 8;
-            const driftY = Math.cos(time * 0.00019 + node.phase * 1.4) * 7;
+            const driftX = Math.sin(time * 0.00068 + node.phase) * 17;
+            const driftY = Math.cos(time * 0.00057 + node.phase * 1.4) * 14;
             let x = node.x + driftX;
             let y = node.y + driftY;
             const dx = pointerX - x;
             const dy = pointerY - y;
             const distance = Math.hypot(dx, dy);
-            if (pointerActive && distance < 190) {
-              const pull = (1 - distance / 190) * 20;
+            if (pointerActive && distance < 260) {
+              const pull = (1 - distance / 260) * 48;
               x += dx / (distance || 1) * pull;
               y += dy / (distance || 1) * pull;
             }
@@ -430,10 +430,10 @@
               const dx = points[i].x - points[j].x;
               const dy = points[i].y - points[j].y;
               const distance = Math.hypot(dx, dy);
-              if (distance < 128) {
-                const alpha = (1 - distance / 128) * 0.22;
-                context.strokeStyle = `rgba(130, 148, 255, ${alpha})`;
-                context.lineWidth = 1;
+              if (distance < 158) {
+                const alpha = (1 - distance / 158) * 0.36;
+                context.strokeStyle = i % 8 === 0 ? `rgba(200, 241, 105, ${alpha * 0.72})` : `rgba(145, 163, 255, ${alpha})`;
+                context.lineWidth = 1.15;
                 context.beginPath();
                 context.moveTo(points[i].x, points[i].y);
                 context.lineTo(points[j].x, points[j].y);
@@ -445,18 +445,30 @@
           points.forEach((point, index) => {
             context.beginPath();
             context.arc(point.x, point.y, point.size, 0, Math.PI * 2);
-            context.fillStyle = index % 9 === 0 ? 'rgba(200, 241, 105, .65)' : 'rgba(169, 181, 255, .48)';
+            context.fillStyle = index % 7 === 0 ? 'rgba(200, 241, 105, .92)' : 'rgba(184, 196, 255, .78)';
+            context.shadowColor = index % 7 === 0 ? 'rgba(200, 241, 105, .85)' : 'rgba(130, 148, 255, .8)';
+            context.shadowBlur = index % 7 === 0 ? 11 : 7;
             context.fill();
           });
+          context.shadowBlur = 0;
 
           if (pointerActive) {
-            const halo = context.createRadialGradient(pointerX, pointerY, 0, pointerX, pointerY, 210);
-            halo.addColorStop(0, 'rgba(130, 148, 255, .14)');
+            const halo = context.createRadialGradient(pointerX, pointerY, 0, pointerX, pointerY, 260);
+            halo.addColorStop(0, 'rgba(130, 148, 255, .27)');
+            halo.addColorStop(.34, 'rgba(130, 148, 255, .1)');
             halo.addColorStop(1, 'rgba(130, 148, 255, 0)');
             context.fillStyle = halo;
             context.beginPath();
-            context.arc(pointerX, pointerY, 210, 0, Math.PI * 2);
+            context.arc(pointerX, pointerY, 260, 0, Math.PI * 2);
             context.fill();
+            const pulse = (time % 1250) / 1250;
+            [pulse, (pulse + .5) % 1].forEach((phase) => {
+              context.beginPath();
+              context.arc(pointerX, pointerY, 18 + phase * 112, 0, Math.PI * 2);
+              context.strokeStyle = `rgba(200, 241, 105, ${(1 - phase) * .42})`;
+              context.lineWidth = 1.4;
+              context.stroke();
+            });
           }
         };
 
