@@ -100,6 +100,11 @@
     .icon svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
     .benefit h3 { margin-bottom: 9px; font-size: 18px; letter-spacing: -.025em; }
     .benefit p { margin-bottom: 0; color: var(--muted); font-size: 14px; }
+    .ai-illustration { position: relative; margin: -8px 0 28px; overflow: hidden; border: 1px solid rgba(130,148,255,.18); border-radius: 24px; background: radial-gradient(ellipse at 50% 0%, rgba(130,148,255,.1), transparent 58%), linear-gradient(120deg, rgba(20,27,46,.96), rgba(14,20,36,.96)); box-shadow: inset 0 1px rgba(255,255,255,.035); }
+    .ai-illustration svg { display: block; width: 100%; height: auto; }
+    .method { position: relative; overflow: hidden; min-height: 190px; padding: 22px; border: 1px solid var(--line); border-left: 2px solid var(--blue); border-radius: 4px 18px 18px 4px; background: linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.012)); }
+    .method-icon { width: 46px; height: 46px; display: grid; place-items: center; margin-bottom: 20px; border: 1px solid rgba(130,148,255,.22); border-radius: 15px; background: linear-gradient(145deg, rgba(130,148,255,.16), rgba(200,241,105,.07)); color: #b8c2ff; }
+    .method-icon svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
     .audience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
     .audience-card { padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
     .audience-card h3 { margin-bottom: 18px; font-size: 21px; }
@@ -247,6 +252,19 @@
           <h2 class="section-title">ไม่ใช่แค่ขอให้ AI “เขียนให้หน่อย”</h2>
           <p class="section-intro">ฝึกวิธีคิดและขั้นตอนทำงานที่นำกลับไปปรับใช้กับสินค้าและร้านของคุณเอง</p>
         </div>
+        <div class="ai-illustration" role="img" aria-label="ภาพประกอบการเปลี่ยนข้อมูลสินค้าให้เป็นร่างคอนเทนต์ด้วย AI แล้วตรวจทานก่อนใช้">
+          <svg viewBox="0 0 1100 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><linearGradient id="panel-edge" x1="0" x2="1"><stop stop-color="#8294ff" stop-opacity=".5"/><stop offset=".52" stop-color="#8294ff" stop-opacity=".12"/><stop offset="1" stop-color="#c8f169" stop-opacity=".42"/></linearGradient><linearGradient id="flow-stroke" x1="0" x2="1"><stop stop-color="#8294ff"/><stop offset="1" stop-color="#c8f169"/></linearGradient><radialGradient id="ai-halo"><stop stop-color="#8294ff" stop-opacity=".22"/><stop offset="1" stop-color="#8294ff" stop-opacity="0"/></radialGradient></defs>
+            <rect x=".5" y=".5" width="1099" height="239" rx="23" fill="transparent" stroke="url(#panel-edge)"/>
+            <circle cx="550" cy="120" r="104" fill="url(#ai-halo)"/>
+            <path d="M250 120h252M598 120h252" stroke="url(#flow-stroke)" stroke-width="2" stroke-dasharray="5 8" opacity=".8"/>
+            <circle cx="250" cy="120" r="4" fill="#8294ff"/><circle cx="850" cy="120" r="4" fill="#c8f169"/>
+            <g transform="translate(86 58)"><rect width="164" height="124" rx="18" fill="#171f34" stroke="#36415f"/><rect x="18" y="20" width="38" height="38" rx="11" fill="#8294ff" fill-opacity=".16" stroke="#8294ff" stroke-opacity=".35"/><path d="M30 47V34l7-6 7 6v13M33 47V37h8v10M25 49h25" fill="none" stroke="#c4ccff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><rect x="69" y="25" width="70" height="7" rx="3.5" fill="#e9edff" fill-opacity=".8"/><rect x="69" y="39" width="52" height="5" rx="2.5" fill="#a9b2c8" fill-opacity=".65"/><rect x="18" y="76" width="128" height="5" rx="2.5" fill="#a9b2c8" fill-opacity=".28"/><rect x="18" y="90" width="96" height="5" rx="2.5" fill="#a9b2c8" fill-opacity=".2"/><text x="18" y="114" fill="#a9b2c8" font-size="10" font-family="system-ui, sans-serif" letter-spacing="1.3">PRODUCT INFO</text></g>
+            <g><circle cx="550" cy="120" r="46" fill="#19223a" stroke="#8294ff" stroke-opacity=".62"/><circle cx="550" cy="120" r="36" fill="none" stroke="#8294ff" stroke-opacity=".22" stroke-dasharray="2 5"/><path d="M550 96v10M550 134v10M526 120h10M564 120h10M533 103l7 7M560 130l7 7M567 103l-7 7M540 130l-7 7" stroke="#c8f169" stroke-width="1.7" stroke-linecap="round"/><circle cx="550" cy="120" r="8" fill="#c8f169"/><text x="550" y="183" text-anchor="middle" fill="#c2cbef" font-size="10" font-family="system-ui, sans-serif" letter-spacing="1.7">AI WORKSPACE</text></g>
+            <g transform="translate(850 58)"><rect width="164" height="124" rx="18" fill="#171f34" stroke="#3b4a3d"/><rect x="18" y="18" width="128" height="58" rx="10" fill="#0e1527" stroke="#36415f"/><path d="M30 58c12-22 20 12 31-5s19-20 29-4 17-14 27-10 16 13 21-1" fill="none" stroke="#c8f169" stroke-width="2" stroke-linecap="round"/><circle cx="61" cy="53" r="3" fill="#8294ff"/><circle cx="90" cy="49" r="3" fill="#8294ff"/><rect x="18" y="88" width="64" height="6" rx="3" fill="#e9edff" fill-opacity=".68"/><rect x="18" y="101" width="96" height="5" rx="2.5" fill="#a9b2c8" fill-opacity=".35"/><circle cx="135" cy="98" r="10" fill="#c8f169" fill-opacity=".16"/><path d="m131 98 3 3 5-6" fill="none" stroke="#c8f169" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></g>
+            <g fill="#8294ff" fill-opacity=".8"><circle cx="304" cy="49" r="2"/><circle cx="770" cy="192" r="2"/><circle cx="762" cy="50" r="1.5"/><circle cx="341" cy="194" r="1.5"/></g><circle cx="804" cy="83" r="3" fill="#c8f169" fill-opacity=".8"/>
+          </svg>
+        </div>
         <div class="benefit-grid">
           <article class="benefit"><div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/><circle cx="12" cy="12" r="3"/></svg></div><h3>ตั้งคำสั่งได้ตรงงาน</h3><p>ใส่ข้อมูล กลุ่มเป้าหมาย และรูปแบบผลลัพธ์ให้ครบ เพื่อให้ AI ร่างงานได้ใกล้โจทย์ขึ้น</p></article>
           <article class="benefit"><div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><path d="M14 17h6M17 14v6"/></svg></div><h3>วางหัวข้อได้เป็นชุด</h3><p>ฝึกคิดมุมเนื้อหาให้หลากหลาย และจัดเป็นแผนที่นำไปตรวจและปรับต่อได้</p></article>
@@ -294,9 +312,9 @@
       <div class="wrap">
         <div class="section-head"><p class="section-kicker">วิธีเรียน</p><h2 class="section-title">ฝึกกับข้อมูลร้านของคุณเอง</h2></div>
         <div class="method-grid">
-          <div class="method"><b>01 · เตรียมโจทย์</b><p>นำข้อมูลสินค้าและเป้าหมายที่ต้องการสื่อสารมาใช้ฝึก</p></div>
-          <div class="method"><b>02 · ให้ AI ช่วยร่าง</b><p>ทดลองคำสั่งและปรับผลลัพธ์ให้ตรงกับบริบท</p></div>
-          <div class="method"><b>03 · ตรวจและปรับใช้</b><p>ตรวจข้อเท็จจริงและเลือกเฉพาะส่วนที่เหมาะกับร้าน</p></div>
+          <div class="method"><span class="method-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><circle cx="10.8" cy="10.8" r="2.6"/><path d="m16 16 4.5 4.5M10.8 1v2M10.8 18.6v2M1 10.8h2M18.6 10.8h2"/></svg></span><b>01 · เตรียมโจทย์</b><p>นำข้อมูลสินค้าและเป้าหมายที่ต้องการสื่อสารมาใช้ฝึก</p></div>
+          <div class="method"><span class="method-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="3"/><path d="M8 10h8M8 14h5M12 2v3M18 2v3M6 2v3"/></svg></span><b>02 · ให้ AI ช่วยร่าง</b><p>ทดลองคำสั่งและปรับผลลัพธ์ให้ตรงกับบริบท</p></div>
+          <div class="method"><span class="method-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 19 6v5c0 4.5-2.9 7.7-7 10-4.1-2.3-7-5.5-7-10V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg></span><b>03 · ตรวจและปรับใช้</b><p>ตรวจข้อเท็จจริงและเลือกเฉพาะส่วนที่เหมาะกับร้าน</p></div>
         </div>
       </div>
     </section>
