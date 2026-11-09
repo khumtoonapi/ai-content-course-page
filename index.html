@@ -103,8 +103,8 @@
     .audience-card li { display: flex; gap: 11px; }
     .audience-card .check { flex: 0 0 18px; }
     .module-list { display: grid; gap: 12px; }
-    .module { display: grid; grid-template-columns: 62px 1fr auto; align-items: center; gap: 18px; padding: 21px 24px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,.025); }
-    .module-index { color: var(--lime); font-size: 13px; font-weight: 900; }
+    .module { display: grid; grid-template-columns: minmax(86px, auto) minmax(0, 1fr) auto; align-items: center; gap: 18px; padding: 21px 24px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,.025); }
+    .module-index { color: var(--lime); font-size: 11px; font-weight: 900; white-space: nowrap; }
     .module h3 { margin: 0 0 4px; font-size: 17px; }
     .module p { margin: 0; color: var(--muted); font-size: 14px; }
     .module-tag { color: var(--muted); font-size: 12px; white-space: nowrap; }
@@ -166,7 +166,7 @@
       .section-intro { font-size: 15px; }
       .benefit-grid, .audience-grid, .method-grid, .faq-list, .offer-grid { grid-template-columns: 1fr; }
       .benefit { min-height: auto; }
-      .module { grid-template-columns: 42px 1fr; gap: 11px; padding: 17px; }
+      .module { grid-template-columns: minmax(76px, auto) minmax(0, 1fr); gap: 11px; padding: 17px; }
       .module-tag { grid-column: 2; }
       .offer { padding: 25px 20px; }
       .interest { padding: 64px 0; }
