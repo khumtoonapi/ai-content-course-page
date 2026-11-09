@@ -42,7 +42,8 @@
       font-size: 13px;
       font-weight: 700;
     }
-    .site-header { position: relative; z-index: 5; border-bottom: 1px solid var(--line); }
+    .site-header { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--line); background: rgba(12,16,32,.96); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+    section[id] { scroll-margin-top: 92px; }
     .nav { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
     .brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; font-weight: 800; letter-spacing: -.03em; }
     .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 11px; color: var(--ink); background: var(--lime); font-size: 17px; font-weight: 950; }
